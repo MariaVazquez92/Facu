@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TP1
 {
-    public class Pais
+    class Estado
     {
         private short _id;
         public short Id
@@ -25,89 +25,89 @@ namespace TP1
                 }
             }
         }
-        public int CodPais { get; set; }
+        public int CodEstado { get; set; }
         public string Descripcion { get; set; }
-        private static List<Pais> ListaPais = new List<Pais>();
+        private static List<Estado> ListaEstado = new List<Estado>();
 
-        public Pais()
+        public Estado()
         {
 
         }
 
-        public Pais(int codPais,string descripcion)
+        public Estado(int codEstado, string descripcion)
         {
             this._id = Utilidades.ObtenerCodigo();
-            this.CodPais = codPais;
-            this.Descripcion = descripcion; 
+            this.CodEstado = codEstado;
+            this.Descripcion = descripcion;
         }
         public static int ObtenerIndice(short id)
         {
             int indice;
-            indice = ListaPais.FindIndex(x => x.Id == id);
+            indice = ListaEstado.FindIndex(x => x.Id == id);
             return indice;
 
         }
-        public static bool AgregarPais(Pais pais)
+        public static bool AgregarEstado(Estado estado)
         {
 
             using (SqlConnection con = new SqlConnection(configuracion.Cadena_Conexion))
             {
                 con.Open();
 
-                string sentenciaSql = "insert into Pais(CodPais,Descripcion" +
-                    "values (@CodPais,Descripcion))";
+                string sentenciaSql = "insert into Ciudad(CodEstado,Descripcion" +
+                    "values (@CodEstado,Descripcion))";
                 SqlCommand cmd = new SqlCommand(sentenciaSql, con);
 
-                SqlParameter p1 = new SqlParameter("@codPais", pais.CodPais);
+                SqlParameter p1 = new SqlParameter("@codEstado", estado.CodEstado);
                 p1.SqlDbType = SqlDbType.Char;
 
-                SqlParameter p2 = new SqlParameter("@Descripcion", pais.Descripcion);
+                SqlParameter p2 = new SqlParameter("@Descripcion", estado.Descripcion);
                 p2.SqlDbType = SqlDbType.Char;
 
                 cmd.Parameters.Add(p1);
                 cmd.Parameters.Add(p2);
-                
+
 
                 cmd.ExecuteNonQuery();
                 return true;
             }
         }
-        public static bool EditarPais(Pais pais)
+        public static bool EditarEstado (Estado estado)
         {
             using (SqlConnection con = new SqlConnection(configuracion.Cadena_Conexion))
             {
                 con.Open();
 
-                string sentenciaSql = "Update Pais " +
-                                      "set CodPais= @CodPais, " +
-                                      "Descripcion= @Descripcion, " + 
+                string sentenciaSql = "Update Estado " +
+                                      "set CodEstado= @CodEstado, " +
+                                      "Descripcion= @Descripcion, " +
                                       "where Id = @Id";
                 SqlCommand cmd = new SqlCommand(sentenciaSql, con);
 
-                SqlParameter p1 = new SqlParameter("@CodPais", pais.CodPais);
+                SqlParameter p1 = new SqlParameter("@codEstado", estado.CodEstado);
                 p1.SqlDbType = SqlDbType.Char;
 
-                SqlParameter p2 = new SqlParameter("@Descripcion", pais.Descripcion);
+                SqlParameter p2 = new SqlParameter("@Descripcion", estado.Descripcion);
                 p2.SqlDbType = SqlDbType.Date;
 
                 cmd.Parameters.Add(p1);
                 cmd.Parameters.Add(p2);
 
                 cmd.ExecuteNonQuery();
-                ActualizarPaisLista();
+                ActualizarCiudadLista();
 
 
 
             }
             return true;
         }
-        public static bool EliminarPais(short id)
+        public static bool EliminarEstado(short id)
         {
             using (SqlConnection con = new SqlConnection(configuracion.Cadena_Conexion))
             {
                 con.Open();
 
-                string sentenciaSql = "delete from Pais where ";
+                string sentenciaSql = "delete from Estado where ";
                 SqlCommand cmd = new SqlCommand(sentenciaSql, con);
 
                 SqlParameter p1 = new SqlParameter();
@@ -116,25 +116,25 @@ namespace TP1
                 cmd.Parameters.Add(p1);
                 cmd.ExecuteNonQuery();
 
-                ActualizarPaisLista();
+                ActualizarEstadoLista();
             }
             return true;
         }
-        public static List<Pais> ObtenerPaisLista()
+        public static List<Estado> ObtenerEstadoLista()
         {
-            if (ListaPais.Count == 0) ActualizarPaisLista();
+            if (ListaEstado.Count == 0) ActualizarEstadoLista();
 
-            return ListaPais;
+            return ListaEstado;
         }
-        public static List<Alumno> ActualizarPaisLista()
+        public static List<Alumno> ActualizarEstadoLista()
         {
-            ListaPais.Clear();
-            Pais pais;
+            ListaEstado.Clear();
+            Estado estado;
 
             using (SqlConnection con = new SqlConnection(configuracion.Cadena_Conexion))
             {
                 con.Open();
-                string sentenciaSql = "Select * from Pais";
+                string sentenciaSql = "Select * from Estado";
 
                 SqlCommand cmd = new SqlCommand(sentenciaSql, con);
 
@@ -142,16 +142,16 @@ namespace TP1
 
                 while (lectorDatos.Read())
                 {
-                    pais = new Pais();
+                    estado = new Estado();
 
-                    pais.CodPais = lectorDatos.GetInt32(0);
-                    pais.Descripcion= lectorDatos.GetString(1);
+                    estado.CodEstado = lectorDatos.GetInt32(0);
+                    estado.Descripcion = lectorDatos.GetString(1);
 
-                    ListaPais.Add(pais);
+                    ListaEstado.Add(estado);
 
                 }
 
-                return ListaPais;
+                return ListaEstado;
             }
         }
     }
