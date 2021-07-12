@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TP1
 {
-    public class Pais
+    class Ciudad
     {
         private short _id;
         public short Id
@@ -25,89 +25,89 @@ namespace TP1
                 }
             }
         }
-        public int CodPais { get; set; }
+        public int CodCiudad { get; set; }
         public string Descripcion { get; set; }
-        private static List<Pais> ListaPais = new List<Pais>();
+        private static List<Ciudad> ListaCiudad = new List<Ciudad>();
 
-        public Pais()
+        public Ciudad()
         {
 
         }
 
-        public Pais(int codPais,string descripcion)
+        public Ciudad(int codPais, string descripcion)
         {
             this._id = Utilidades.ObtenerCodigo();
-            this.CodPais = codPais;
-            this.Descripcion = descripcion; 
+            this.CodCiudad = codPais;
+            this.Descripcion = descripcion;
         }
         public static int ObtenerIndice(short id)
         {
             int indice;
-            indice = ListaPais.FindIndex(x => x.Id == id);
+            indice = ListaCiudad.FindIndex(x => x.Id == id);
             return indice;
 
         }
-        public static bool AgregarPais(Pais pais)
+        public static bool AgregarCiudad(Ciudad ciudad)
         {
 
             using (SqlConnection con = new SqlConnection(configuracion.Cadena_Conexion))
             {
                 con.Open();
 
-                string sentenciaSql = "insert into Pais(CodPais,Descripcion" +
-                    "values (@CodPais,Descripcion))";
+                string sentenciaSql = "insert into Ciudad(CodCiudad,Descripcion" +
+                    "values (@CodCiudad,Descripcion))";
                 SqlCommand cmd = new SqlCommand(sentenciaSql, con);
 
-                SqlParameter p1 = new SqlParameter("@codPais", pais.CodPais);
+                SqlParameter p1 = new SqlParameter("@codCiudad", ciudad.CodCiudad);
                 p1.SqlDbType = SqlDbType.Char;
 
-                SqlParameter p2 = new SqlParameter("@Descripcion", pais.Descripcion);
+                SqlParameter p2 = new SqlParameter("@Descripcion", ciudad.Descripcion);
                 p2.SqlDbType = SqlDbType.Char;
 
                 cmd.Parameters.Add(p1);
                 cmd.Parameters.Add(p2);
-                
+
 
                 cmd.ExecuteNonQuery();
                 return true;
             }
         }
-        public static bool EditarPais(Pais pais)
+        public static bool EditarCiudad(Ciudad ciudad)
         {
             using (SqlConnection con = new SqlConnection(configuracion.Cadena_Conexion))
             {
                 con.Open();
 
-                string sentenciaSql = "Update Pais " +
-                                      "set CodPais= @CodPais, " +
-                                      "Descripcion= @Descripcion, " + 
+                string sentenciaSql = "Update Ciudad " +
+                                      "set CodCiudad= @CodCiudad, " +
+                                      "Descripcion= @Descripcion, " +
                                       "where Id = @Id";
                 SqlCommand cmd = new SqlCommand(sentenciaSql, con);
 
-                SqlParameter p1 = new SqlParameter("@CodPais", pais.CodPais);
+                SqlParameter p1 = new SqlParameter("@codCiudad", ciudad.CodCiudad);
                 p1.SqlDbType = SqlDbType.Char;
 
-                SqlParameter p2 = new SqlParameter("@Descripcion", pais.Descripcion);
+                SqlParameter p2 = new SqlParameter("@Descripcion", ciudad.Descripcion);
                 p2.SqlDbType = SqlDbType.Date;
 
                 cmd.Parameters.Add(p1);
                 cmd.Parameters.Add(p2);
 
                 cmd.ExecuteNonQuery();
-                ActualizarPaisLista();
+                ActualizarCiudadLista();
 
 
 
             }
             return true;
         }
-        public static bool EliminarPais(short id)
+        public static bool EliminarCiudad(short id)
         {
             using (SqlConnection con = new SqlConnection(configuracion.Cadena_Conexion))
             {
                 con.Open();
 
-                string sentenciaSql = "delete from Pais where ";
+                string sentenciaSql = "delete from Ciudad where ";
                 SqlCommand cmd = new SqlCommand(sentenciaSql, con);
 
                 SqlParameter p1 = new SqlParameter();
@@ -116,25 +116,25 @@ namespace TP1
                 cmd.Parameters.Add(p1);
                 cmd.ExecuteNonQuery();
 
-                ActualizarPaisLista();
+                ActualizarCiudadLista();
             }
             return true;
         }
-        public static List<Pais> ObtenerPaisLista()
+        public static List<Pais> ObtenerCiudadLista()
         {
-            if (ListaPais.Count == 0) ActualizarPaisLista();
+            if (ListaCiudad.Count == 0) ActualizarCiudadLista();
 
-            return ListaPais;
+            return ListaCiudad;
         }
-        public static List<Alumno> ActualizarPaisLista()
+        public static List<Alumno> ActualizarCiudadLista()
         {
-            ListaPais.Clear();
-            Pais pais;
+            ListaCiudad.Clear();
+            Ciudad ciudad;
 
             using (SqlConnection con = new SqlConnection(configuracion.Cadena_Conexion))
             {
                 con.Open();
-                string sentenciaSql = "Select * from Pais";
+                string sentenciaSql = "Select * from Ciudad";
 
                 SqlCommand cmd = new SqlCommand(sentenciaSql, con);
 
@@ -142,16 +142,16 @@ namespace TP1
 
                 while (lectorDatos.Read())
                 {
-                    pais = new Pais();
+                    ciudad = new Ciudad();
 
-                    pais.CodPais = lectorDatos.GetInt32(0);
-                    pais.Descripcion= lectorDatos.GetString(1);
+                    ciudad.CodCiudad = lectorDatos.GetInt32(0);
+                    ciudad.Descripcion = lectorDatos.GetString(1);
 
-                    ListaPais.Add(pais);
+                    ListaCiudad.Add(ciudad);
 
                 }
 
-                return ListaPais;
+                return ListaCiudad;
             }
         }
     }

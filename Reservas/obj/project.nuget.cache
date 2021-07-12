@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AAg0C2n+fBa2BZSwKZBC9L2ullwsvLlkPiin2QHGjQg1/Ne/jG+13wyJjkUpbhO+B3tMQQAyjagaZHgL2JzOWg==",
+  "dgSpecHash": "Rsq6ehma1qGXzqpdSgZClnZF5QMa1UObZnM4O8wcD4/Ila87TjOAIH+x6A5x+NnEE1WDMLtGhKRYZWoTwa7x/w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ruben\\Desktop\\Nueva carpeta (6)\\TP1\\TP1\\Reservas\\Interfaz.csproj",
+  "projectFilePath": "C:\\Users\\Ruben\\Documents\\GitHub\\Facu\\Reservas\\Interfaz.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ruben\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\Ruben\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

@@ -193,11 +193,11 @@ namespace Interfaz
             if (lsbAlumnos.SelectedItem != null && txtIdAlumno.Text != "")
             {
                 short Id = Convert.ToInt16(txtIdAlumno.Text);
-                Profesor.EliminarProfesor(Id);
+                Profesor.EliminarAlumno(Id);
             }
             else
             {
-                MessageBox.Show("Seleccione profesor a eliminar");
+                MessageBox.Show("Seleccione alumno a eliminar");
             }
 
             ActualizarAlumnos();

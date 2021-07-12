@@ -9,25 +9,17 @@ using System.Windows.Forms;
 
 namespace Interfaz
 {
-    public partial class Pais : Form
+    public partial class frmCiudad : Form
     {
-        private string text1;
-        private string text2;
         protected enum Accion { Nuevo, Editar, Eliminar, Ninguno }
 
         Accion accionBoton;
-        public Pais()
+        public frmCiudad()
         {
             InitializeComponent();
         }
 
-        public Pais(string text1, string text2)
-        {
-            this.text1 = text1;
-            this.text2 = text2;
-        }
-
-        private void Pais_Load(object sender, EventArgs e)
+        private void frmCiudad_Load(object sender, EventArgs e)
         {
             try
             {
@@ -44,38 +36,37 @@ namespace Interfaz
                 MessageBox.Show("Ha ocurrido un error. " + ex.Message + " " +
                     ex.Source);
             }
-        }
 
+        }
         private void InhabilitarCampos()
         {
-            txtPais.Enabled = false;
+            txtCiudad.Enabled = false;
             txtDescripcion.Enabled = false;
         }
-
         private void HabilitarCampos()
         {
-            txtPais.Enabled = true;
+            txtCiudad.Enabled = true;
             txtDescripcion.Enabled = true;
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        private void btnGuardarCiudad_Click(object sender, EventArgs e)
         {
             bool ban = new bool();
             ban = false;
 
-            Pais paises = new Pais(txtPais.Text,txtDescripcion.Text);
+            frmCiudad ciudad = new Ciudad(txtCiudad.Text, txtDescripcion.Text, "");
             try
             {
                 if (accionBoton == Accion.Nuevo)
                 {
-                    ban = Pais.AgregarPais(paises);
+                    ban = frmCiudad.AgregarCiudad(ciudad);
                     if (ban)
                     {
-                        MessageBox.Show($"El pais{paises.txtPais}fue agregado");
+                        MessageBox.Show($"La ciudad{ciudad.txtCiudad}fue agregado");
                     }
                 }
 
-                ActualizarPaises();
+                ActualizarCiudad();
 
             }
             catch (SqlException esql)
@@ -92,19 +83,18 @@ namespace Interfaz
             LimpiarCampos();
             InhabilitarCampos();
         }
-        private void ActualizarAlumnos()
+        private void ActualizarCiudad()
         {
-            lsbPaises.DataSource = null;
-            lsbPaises.DataSource = Pais.ObtenerPaisLista();
+            lsbCiudad.DataSource = null;
+            lsbCiudad.DataSource = frmCiudad.ObtenerCiudadLista();
         }
-
         private void LimpiarCampos()
         {
-            txtPais.Text = "";
+            txtCiudad.Text = "";
             txtDescripcion.Text = "";
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void btnLimpiarCiudad_Click(object sender, EventArgs e)
         {
             if (accionBoton == Accion.Nuevo)
             {
@@ -112,14 +102,45 @@ namespace Interfaz
             }
         }
 
-        private void lsbPaises_SelectedIndexChanged(object sender, EventArgs e)
+        private void lsbCiudad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lsbPaises.SelectedItem != null)
+            if (lsbCiudad.SelectedItem != null)
             {
-                var pais = new Pais();
-                pais = (Pais)lsbPaises.SelectedItem;
-                txtPais.Text = pais.Id.ToString();
+                var pais = new frmPais();
+                pais = (frmPais)lsbCiudad.SelectedItem;
+                txtCiudad.Text = pais.Id.ToString();
             }
+        }
+
+        private void btnEditarCiudad_Click(object sender, EventArgs e)
+        {
+            if (lsbCiudad.SelectedItem != null && txtDescripcion.Text != "")
+            {
+                HabilitarCampos();
+                accionBoton = Accion.Editar;
+            }
+        }
+
+        private void btnEliminarCiudad_Click(object sender, EventArgs e)
+        {
+            if (lsbCiudad.SelectedItem != null && txtCiudad.Text != "")
+            {
+                short Id = Convert.ToInt16(txtCiudad.Text);
+                frmPais.EliminarCiudad(Id);
+            }
+            else
+            {
+                MessageBox.Show("Seleccione Ciudad a eliminar");
+            }
+
+            ActualizarCiudad();
+            LimpiarCampos();
+        }
+
+        private void btnCancelarCiudad_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
+            InhabilitarCampos();
         }
     }
 }

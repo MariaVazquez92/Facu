@@ -1,7 +1,7 @@
 ﻿
 namespace Interfaz
 {
-    partial class Pais
+    partial class frmPais
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,6 @@ namespace Interfaz
             this.lblPais = new System.Windows.Forms.Label();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.txtPais = new System.Windows.Forms.TextBox();
-            this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
@@ -40,6 +39,7 @@ namespace Interfaz
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.lsbPaises = new System.Windows.Forms.ListBox();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblPais
@@ -67,13 +67,6 @@ namespace Interfaz
             this.txtPais.Size = new System.Drawing.Size(156, 23);
             this.txtPais.TabIndex = 2;
             // 
-            // txtDescripcion
-            // 
-            this.txtDescripcion.Location = new System.Drawing.Point(87, 82);
-            this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(156, 23);
-            this.txtDescripcion.TabIndex = 3;
-            // 
             // btnGuardar
             // 
             this.btnGuardar.Location = new System.Drawing.Point(12, 130);
@@ -92,6 +85,7 @@ namespace Interfaz
             this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnEliminar
             // 
@@ -101,6 +95,7 @@ namespace Interfaz
             this.btnEliminar.TabIndex = 6;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnLimpiar
             // 
@@ -120,6 +115,7 @@ namespace Interfaz
             this.btnEditar.TabIndex = 9;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnNuevo
             // 
@@ -140,7 +136,14 @@ namespace Interfaz
             this.lsbPaises.TabIndex = 7;
             this.lsbPaises.SelectedIndexChanged += new System.EventHandler(this.lsbPaises_SelectedIndexChanged);
             // 
-            // Pais
+            // txtDescripcion
+            // 
+            this.txtDescripcion.Location = new System.Drawing.Point(87, 82);
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Size = new System.Drawing.Size(156, 23);
+            this.txtDescripcion.TabIndex = 3;
+            // 
+            // frmPais
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -156,7 +159,7 @@ namespace Interfaz
             this.Controls.Add(this.txtPais);
             this.Controls.Add(this.lblDescripcion);
             this.Controls.Add(this.lblPais);
-            this.Name = "Pais";
+            this.Name = "frmPais";
             this.Text = "Pais";
             this.Load += new System.EventHandler(this.Pais_Load);
             this.ResumeLayout(false);
@@ -169,7 +172,6 @@ namespace Interfaz
         private System.Windows.Forms.Label lblPais;
         private System.Windows.Forms.Label lblDescripcion;
         private System.Windows.Forms.TextBox txtPais;
-        private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnEliminar;
@@ -177,5 +179,6 @@ namespace Interfaz
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.ListBox lsbPaises;
+        private System.Windows.Forms.TextBox txtDescripcion;
     }
 }
