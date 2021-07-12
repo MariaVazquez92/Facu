@@ -10,6 +10,6 @@ namespace TP1
     public static class configuracion
     {
         public static string Cadena_Conexion = ConfigurationManager.ConnectionStrings
-            ["dbTP1"].ConnectionString;
+            ["RESERVAS"].ConnectionString;
     }
 }
